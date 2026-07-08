@@ -12,6 +12,9 @@ import org.testcontainers.utility.DockerImageName;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+
 
 @Testcontainers(disabledWithoutDocker = true)
  class OrderTestIT {
@@ -24,17 +27,66 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
      static OrderRepository repository;
      static OrderFactory factory;
 
-     @BeforeAll
-     static void migrateSchema(){
-         Flyway.configure()
-                 .dataSource(mySQL.getJdbcUrl(), mySQL.getUsername(), mySQL.getPassword())
-                 .locations("classpath:db/migration")
-                 .load()
-                 .migrate();
+    //  @BeforeAll
+    //  static void migrateSchema(){
+    //      Flyway.configure()
+    //              .dataSource(mySQL.getJdbcUrl(), mySQL.getUsername(), mySQL.getPassword())
+    //              .locations("classpath:db/migration")
+    //              .load()
+    //              .migrate();
 
-         repository = new OrderRepository(mySQL.getJdbcUrl(), mySQL.getUsername(), mySQL.getPassword());
-         factory = new OrderFactory(repository);
-     }
+    //      repository = new OrderRepository(mySQL.getJdbcUrl(), mySQL.getUsername(), mySQL.getPassword());
+    //      factory = new OrderFactory(repository);
+    //  }
+
+    @BeforeAll
+    static void migrateSchema() throws Exception {
+
+        System.out.println("===== TESTCONTAINERS DEBUG =====");
+        System.out.println("JDBC URL  : " + mySQL.getJdbcUrl());
+        System.out.println("Username  : " + mySQL.getUsername());
+        System.out.println("Password  : " + mySQL.getPassword());
+        System.out.println("Container : " + mySQL.getContainerName());
+        System.out.println("================================");
+
+        Flyway flyway = Flyway.configure()
+                .dataSource(
+                        mySQL.getJdbcUrl(),
+                        mySQL.getUsername(),
+                        mySQL.getPassword())
+                .locations("classpath:db/migration")
+                .load();
+
+        var result = flyway.migrate();
+
+        System.out.println("Flyway migrations executed : "
+                + result.migrationsExecuted);
+
+        try (Connection con = DriverManager.getConnection(
+                mySQL.getJdbcUrl(),
+                mySQL.getUsername(),
+                mySQL.getPassword());
+            Statement stmt = con.createStatement()) {
+
+            System.out.println("\n===== TABLES =====");
+
+            ResultSet rs = stmt.executeQuery("SHOW TABLES");
+
+            while (rs.next()) {
+                System.out.println(rs.getString(1));
+            }
+
+            System.out.println("==================");
+
+        }
+
+        repository = new OrderRepository(
+                mySQL.getJdbcUrl(),
+                mySQL.getUsername(),
+                mySQL.getPassword());
+
+        factory = new OrderFactory(repository);
+    }
 
      @BeforeEach
      void reset(){
