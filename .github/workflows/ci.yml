@@ -17,17 +17,16 @@ jobs:
           java-version: '22'
           cache: 'maven'
     
-      - name: 3. Start docker
+      - name: 3. Start Docker
         working-directory: gradlerepo
         run: |
-          docker compose -f src/test/resources/docker/docker-compose.testcontainer.yml down -v
-          docker compose -f src/test/resources/docker/docker-compose.testcontainer.yml --wait
+            docker compose -f src/test/resources/docker/docker-compose.testcontainer.yml down -v
+            docker compose -f src/test/resources/docker/docker-compose.testcontainer.yml up -d --wait
 
       - name: 4. Grant execute permission
         run: chmod +x gradlew
 
       
-      - name: 5. Run Test
+      - name: 5. Run Tests
         working-directory: gradlerepo
-        run: |
-          gradle OrderTestIT
+        run: ./gradlew test --tests "com.gradleproject.data.OrderTestIT"
