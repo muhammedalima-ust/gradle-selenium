@@ -1,0 +1,29 @@
+name: Test Environment
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 1. Checkout Code
+        uses: actions/checkout@v5
+
+      - name: 1. Set up Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          java-version: '22'
+          cache: 'maven'
+    
+      - name: 1. Start docker
+        working-directory: gradlerepo
+        run: |
+          docker compose -f src/test/resources/docker/docker-compose.testcontainer.yml down -v
+          docker compose -f src/test/resources/docker/docker-compose.testcontainer.yml --wait
+
+      - name: 2. Run Consumer Tests & Publish Contracts
+        working-directory: gradlerepo
+        run: |
+          gradle OrderTestIT
