@@ -86,10 +86,8 @@ tasks.register("runAllTests") {
 }
 
 tasks.test {
-    description = "Run POM AND NORMAL TEST"
-    include("**/CatalogFlowTest.class")
-    include("**/CatalogFlowPOMTest.class")
-    include("**/Day6Test.class")
+    description = "Run the tests"
+    include("**/OrderTestIT.class")
     maxParallelForks = 1
 }
 
