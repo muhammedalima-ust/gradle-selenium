@@ -29,7 +29,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
          Flyway.configure()
                  .dataSource(mySQL.getJdbcUrl(), mySQL.getUsername(), mySQL.getPassword())
                  .locations("classpath:db/migration")
-                 .load()
                  .migrate();
 
          repository = new OrderRepository(mySQL.getJdbcUrl(), mySQL.getUsername(), mySQL.getPassword());
