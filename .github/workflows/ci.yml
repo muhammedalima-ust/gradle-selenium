@@ -24,6 +24,7 @@ jobs:
             docker compose -f src/test/resources/docker/docker-compose.testcontainer.yml up -d --wait
 
       - name: 4. Grant execute permission
+        working-directory: gradlerepo
         run: chmod +x gradlew
 
       
