@@ -31,13 +31,11 @@ jobs:
       - name: 5. Run Tests
         working-directory: gradlerepo
         run: ./gradlew test --tests "com.gradleproject.data.OrderTestIT"
-        
+
       - name: 6. Run Tests with Build Scan
         if: always()
         working-directory: gradlerepo
         run: |
           ./gradlew test \
             --tests "com.gradleproject.data.OrderTestIT" \
-            --stacktrace \
-            --info \
             --scan
