@@ -29,4 +29,4 @@ jobs:
 
       - name: Run Integration Tests
         working-directory: gradlerepo
-        run: ./gradlew test --tests "com.gradleproject.data.OrderTestIT"
+        run: ./gradlew test
