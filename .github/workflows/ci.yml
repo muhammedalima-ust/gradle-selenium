@@ -22,6 +22,10 @@ jobs:
       - name: Generate Gradle Wrapper   
         working-directory: gradlerepo
         run: gradle wrapper
+      
+      - name: Setup Allure report
+        uses: simple-elf/allure-report-action@master
+
 
       - name: Grant execute permission
         working-directory: gradlerepo

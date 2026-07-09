@@ -49,11 +49,6 @@ public class CatalogStructureTest {
 
                 ()->assertTrue(catalogMethodModiers.stream()
                         .allMatch(returnType ->returnType.getReturnType().equals(CatalogPage.class)))
-
-
-
-
-
         );
 
 

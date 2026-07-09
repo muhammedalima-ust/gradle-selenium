@@ -1,5 +1,6 @@
 plugins {
     java
+    id("io.qameta.allure") version "2.12.0"
 }
 
 group = "com.gradleproject"
@@ -9,7 +10,7 @@ val seleniumVersion = "4.45.0"
 val selenideVersion = "7.16.2"
 val junitVersion = "5.14.4"
 val cucumberVersion = "7.34.3"
-val allureVersion = "2.33.0"
+val allureVersion = "2.35.3"
 val extentVersion = "5.1.2"
 val extentCucumberAdapterVersion = "1.14.0"
 val slf4jVersion = "2.0.17"
@@ -35,6 +36,7 @@ dependencies {
     testImplementation("io.cucumber:cucumber-picocontainer")
     testImplementation("org.junit.platform:junit-platform-suite")
     testImplementation("io.qameta.allure:allure-cucumber7-jvm")
+    testImplementation("io.qameta.allure:allure-junit5")
     testImplementation("com.aventstack:extentreports:$extentVersion")
     testImplementation("tech.grasshopper:extentreports-cucumber7-adapter:$extentCucumberAdapterVersion")
     testImplementation("org.slf4j:slf4j-simple:$slf4jVersion")
@@ -43,8 +45,6 @@ dependencies {
     testImplementation("org.flywaydb:flyway-core:$flywayVersion")
     testImplementation("org.flywaydb:flyway-mysql:$flywayVersion")
     testImplementation("mysql:mysql-connector-java:$mysqlLibVersion")
-
-
 }
 
 tasks.withType<JavaCompile>().configureEach {
@@ -87,7 +87,8 @@ tasks.register("runAllTests") {
 
 tasks.test {
     description = "Run the tests"
-    include("**/OrderTestIT.class")
+    include("**/AllureReporting.class")
+    //include("**/OrderTestIT.class")
     maxParallelForks = 1
 }
 
@@ -97,6 +98,14 @@ val StructureTest by tasks.registering(Test::class) {
     useProjectTestClasses()
     useJUnitPlatform()
     include("**/CatalogStructureTest.class")
+}
+
+val AllureTest by tasks.registering(Test::class) {
+    description = "Structure Test of catalog page"
+    group = "verification"
+    useProjectTestClasses()
+    useJUnitPlatform()
+    include("**/AllureReporting.class")
 }
 
 val OrderTestIT by tasks.registering(Test::class) {
