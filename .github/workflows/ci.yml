@@ -22,10 +22,6 @@ jobs:
       - name: Generate Gradle Wrapper   
         working-directory: gradlerepo
         run: gradle wrapper
-      
-      - name: Setup Allure report
-        uses: simple-elf/allure-report-action@master
-
 
       - name: Grant execute permission
         working-directory: gradlerepo
@@ -34,3 +30,33 @@ jobs:
       - name: Run Integration Tests
         working-directory: gradlerepo
         run: ./gradlew test
+      
+      - name: Restore Allure History
+        if: always()
+        uses: actions/download-artifact@v4
+        with:
+          name: allure-history
+          path: gradlerepo/build/allure-results/history
+        continue-on-error: true
+
+      - name: Generate Allure Report
+        if: always()
+        uses: simple-elf/allure-report-action@master
+        with:
+          allure_results: gradlerepo/build/allure-results
+          allure_report: gradlerepo/build/allure-report
+          keep_reports: 20
+      
+      - name: Upload Allure Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-report
+          path: gradlerepo/build/allure-report
+
+      - name: Save Allure History
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-history
+          path: gradlerepo/build/allure-report/history
