@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.example.Selenium.reporting.AllureReporting" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-07-09T17:16:31" hostname="5CD547DDVH" time="0.078">
-  <properties/>
-  <testcase name="categoriesPutGenericFlakyRules()" classname="com.example.Selenium.reporting.AllureReporting" time="0.078"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
