@@ -17,11 +17,11 @@ jobs:
           java-version: '22'
           cache: 'maven'
     
-      - name: 3. Start Docker
-        working-directory: gradlerepo
-        run: |
-            docker compose -f src/test/resources/docker/docker-compose.testcontainer.yml down -v
-            docker compose -f src/test/resources/docker/docker-compose.testcontainer.yml up -d --wait
+      # - name: 3. Start Docker
+      #   working-directory: gradlerepo
+      #   run: |
+      #       docker compose -f src/test/resources/docker/docker-compose.testcontainer.yml down -v
+      #       docker compose -f src/test/resources/docker/docker-compose.testcontainer.yml up -d --wait
 
       - name: 4. Grant execute permission
         working-directory: gradlerepo
