@@ -35,11 +35,6 @@ jobs:
         working-directory: gradlerepo
         run: ./gradlew test
 
-      - name: Show Allure version
-        if: always()
-        working-directory: gradlerepo
-        run: allure --version
-
       - name: Checkout gh-pages
         if: always()
         uses: actions/checkout@v5
