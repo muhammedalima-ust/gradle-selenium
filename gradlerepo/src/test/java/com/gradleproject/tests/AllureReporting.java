@@ -54,6 +54,14 @@ class AllureReporting {
     }
 
     @Test
+    @Story("Categories")
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Should appear under Test defects (broken)")
+    void brokenDefect1() {
+        throw new RuntimeException("ERROR");
+    }
+
+    @Test
     @Disabled
     @Story("Categories")
     @Severity(SeverityLevel.CRITICAL)
