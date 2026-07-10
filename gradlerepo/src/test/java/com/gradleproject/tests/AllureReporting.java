@@ -74,7 +74,7 @@ class AllureReporting {
     @Severity(SeverityLevel.CRITICAL)
     @Description("Should appear under Flaky tests")
     void flakyTimeoutTest() {
-        assertTrue(false, "timeout");
+        assertTrue(false, "Request failed due to timeout");
     }
 
 }
