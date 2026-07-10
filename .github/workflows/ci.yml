@@ -35,6 +35,11 @@ jobs:
         working-directory: gradlerepo
         run: ./gradlew test
 
+      - name: Show Allure version
+        if: always()
+        working-directory: gradlerepo
+        run: allure --version
+
       - name: Checkout gh-pages
         if: always()
         uses: actions/checkout@v5
@@ -53,8 +58,6 @@ jobs:
           allure_history: allure-history
           keep_reports: 20\
 
-      - name: Show Allure version
-        run: allure --version
 
       - name: Upload Allure Report
         if: always()
