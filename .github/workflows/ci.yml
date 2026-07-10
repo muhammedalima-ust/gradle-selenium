@@ -58,7 +58,14 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: allure-report
-          path: allure-report 
+          path: allure-report
+
+      - name: Report Link
+        if: always()
+        run: |
+          echo "Tests completed"
+          echo "Report: https://muhammedalima-ust.github.io/gradle-selenium/"
+ 
 
       - name: Deploy Report
         if: always()
