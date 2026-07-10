@@ -1,0 +1,6 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","107","resetMakesTestOrderIndependent()","","2026-07-10","passed","2026-07-10","","com.gradleproject.data.OrderTestIT","com.gradleproject.data.OrderTestIT","resetMakesTestOrderIndependent"
+"","73","countsOnlyPersistedTestOrders()","","2026-07-10","passed","2026-07-10","","com.gradleproject.data.OrderTestIT","com.gradleproject.data.OrderTestIT","countsOnlyPersistedTestOrders"
+"","79","persistedBuilderDataAgainstIsolatedMysql()","","2026-07-10","passed","2026-07-10","","com.gradleproject.data.OrderTestIT","com.gradleproject.data.OrderTestIT","persistedBuilderDataAgainstIsolatedMysql"
+"","64","flywaySeedingReferenceDataButNoPerTestOrders()","","2026-07-10","passed","2026-07-10","","com.gradleproject.data.OrderTestIT","com.gradleproject.data.OrderTestIT","flywaySeedingReferenceDataButNoPerTestOrders"
+"Categories split flaky,test and product","46","categoriesPutGenericFlakyRules()","","2026-07-10","passed","2026-07-10","","com.example.Selenium.reporting.AllureReporting","com.example.Selenium.reporting.AllureReporting","categoriesPutGenericFlakyRules"
