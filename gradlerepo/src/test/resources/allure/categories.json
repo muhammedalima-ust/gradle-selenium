@@ -2,7 +2,7 @@
 {
     "name": "Flaky tests",
     "matchedStatuses": ["failed","broken"],
-    "messageRegex": ".*(timeout|stale element|connection reset).*"
+    "messageRegex": "timeout"
 },
 {
     "name": "Test defects (broken)",
