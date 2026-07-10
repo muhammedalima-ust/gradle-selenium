@@ -5,7 +5,6 @@ import io.qameta.allure.*;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -66,9 +65,8 @@ class AllureReporting {
     @Story("Categories")
     @Severity(SeverityLevel.CRITICAL)
     @Description("The Test will skip and add to skipped category")
-    void skippedTest() {
+    void skippedTest() {}
 
-    }
     @Test
     @Story("Categories")
     @Severity(SeverityLevel.CRITICAL)
