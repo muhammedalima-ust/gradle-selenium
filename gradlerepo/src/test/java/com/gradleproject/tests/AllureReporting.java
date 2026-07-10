@@ -1,4 +1,4 @@
-package com.example.Selenium.reporting;
+package com.gradleproject.tests;
 
 import io.qameta.allure.*;
 
