@@ -41,7 +41,6 @@ class AllureReporting {
     @Severity(SeverityLevel.CRITICAL)
     @Description("Should appear under Product defects")
     void productDefect() {
-
         assertEquals(10, 20, "Incorrect cart total");
     }
 
@@ -50,7 +49,6 @@ class AllureReporting {
     @Severity(SeverityLevel.CRITICAL)
     @Description("Should appear under Test defects (broken)")
     void brokenDefect() {
-
         String text = null;
         text.length();
     }

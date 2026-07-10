@@ -16,6 +16,5 @@
 {
     "name": "Skipped Tests",
     "matchedStatuses": ["skipped"]
-},
-
+}
 ]
