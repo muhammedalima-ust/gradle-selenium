@@ -1,6 +1,8 @@
 package com.example.Selenium.reporting;
 
 import io.qameta.allure.*;
+
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 
@@ -34,16 +36,6 @@ class AllureReporting {
         assertTrue(categories.contains("timeout|stale element|connection reset"));
     }
 
-
-    @Test
-    @Story("Categories")
-    @Severity(SeverityLevel.CRITICAL)
-    @Description("Should appear under Product defects")
-    void assertionFailure() {
-
-        assertEquals(10, 20, "Incorrect cart total");
-    }
-
     @Test
     @Story("Categories")
     @Severity(SeverityLevel.CRITICAL)
@@ -61,6 +53,15 @@ class AllureReporting {
 
         String text = null;
         text.length();
+    }
+
+    @Test
+    @Disabled
+    @Story("Categories")
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("The Test will skip and add to skipped category")
+    void skippedTest() {
+
     }
 
 }
