@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Epic("Framework Hardening")
@@ -32,5 +33,35 @@ class AllureReporting {
         assertTrue(categories.contains("\"flaky\": true"));
         assertTrue(categories.contains("timeout|stale element|connection reset"));
     }
+
+
+    @Test
+    @Story("Categories")
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Should appear under Product defects")
+    void assertionFailure() {
+
+        assertEquals(10, 20, "Incorrect cart total");
+    }
+
+    @Test
+    @Story("Categories")
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Should appear under Product defects")
+    void productDefect() {
+
+        assertEquals(10, 20, "Incorrect cart total");
+    }
+
+    @Test
+    @Story("Categories")
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Should appear under Test defects (broken)")
+    void brokenDefect() {
+
+        String text = null;
+        text.length();
+    }
+
 }
  
