@@ -4,6 +4,10 @@
     "matchedStatuses": ["skipped"]
 },
 {
+    "name": "Passed Test",
+    "matchedStatuses": ["passed"]
+},
+{
     "name": "Flaky tests",
     "matchedStatuses": ["failed","broken"],
     "messageRegex": ".*(timeout|stale element|connection reset).*",
