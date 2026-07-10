@@ -59,12 +59,6 @@ jobs:
         with:
           name: allure-report
           path: allure-report
-
-      - name: Report Link
-        if: always()
-        run: |
-          echo "Tests completed"
-          echo "Report: https://muhammedalima-ust.github.io/gradle-selenium/"
  
 
       - name: Deploy Report
@@ -74,3 +68,9 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: allure-history
+      
+      - name: Report Link
+        if: always()
+        run: |
+          echo "Tests completed"
+          echo "Report: https://muhammedalima-ust.github.io/gradle-selenium/"
