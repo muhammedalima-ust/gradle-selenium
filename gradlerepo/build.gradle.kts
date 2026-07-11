@@ -86,6 +86,26 @@ tasks.register("runAllTests") {
 }
 
 tasks.test {
+    useJUnitPlatform()
+
+    testLogging {
+
+        events(
+            TestLogEvent.PASSED,
+            TestLogEvent.FAILED,
+            TestLogEvent.SKIPPED,
+            TestLogEvent.STANDARD_OUT,
+            TestLogEvent.STANDARD_ERROR
+        )
+
+        exceptionFormat = TestExceptionFormat.FULL
+
+        showExceptions = true
+        showStackTraces = true
+        showCauses = true
+
+        showStandardStreams = true
+    }
     description = "Run the tests"
     include("**/AllureReporting.class")
     include("**/OrderTestIT.class")
