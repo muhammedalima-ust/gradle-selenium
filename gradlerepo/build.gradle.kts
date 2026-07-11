@@ -17,6 +17,7 @@ val slf4jVersion = "2.0.17"
 val testcontainers = "2.0.5"
 val flywayVersion = "10.22.0"
 val mysqlLibVersion = "8.0.33"
+val logBackVersion = "1.5.18"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_22
@@ -46,6 +47,7 @@ dependencies {
     testImplementation("org.flywaydb:flyway-core:$flywayVersion")
     testImplementation("org.flywaydb:flyway-mysql:$flywayVersion")
     testImplementation("mysql:mysql-connector-java:$mysqlLibVersion")
+    testRuntimeOnly("ch.qos.logback:logback-classic:$logBackVersion")
 }
 
 tasks.withType<JavaCompile>().configureEach {
