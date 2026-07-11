@@ -49,9 +49,9 @@ class OrderTestIT {
 
         Report.step("========== Test Container Test Started ==========");
 
-        Report.info("MySql Container Running       : {}", mySQL.isRunning());
-        Report.info("MySql Container JDBC URL      : {}", mySQL.getJdbcUrl());
-        Report.info("MySql Container Database      : {}", mySQL.getDatabaseName());
+        Report.info("MySql Container Running", mySQL.isRunning());
+        Report.info("MySql Container JDBC URL", mySQL.getJdbcUrl());
+        Report.info("MySql Container Database", mySQL.getDatabaseName());
 
         Report.step("Flyway Migration Started");
         Flyway.configure()
