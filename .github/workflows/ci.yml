@@ -33,7 +33,7 @@ jobs:
 
       - name: Run Tests
         working-directory: gradlerepo
-        run: ./gradlew test --info  --console=plain
+        run: ./gradlew clean test --console=plain --no-daemon
 
       - name: Checkout gh-pages
         if: always()
