@@ -33,11 +33,11 @@ class AllureReporting {
         int productDefectIndex = categories.indexOf("\"Product defects\"");
         Report.step("Index of Each fail categories is stored");
         assertTrue(flakyIndex >=0);
-        Report.pass("Flacky Category is inside the category is above 0");
+        Report.pass("Flacky Category index is inside the category is above 0");
         assertTrue(testDefectIndex > flakyIndex);
         Report.pass("Flacky Category is above the Test Defect");
         assertTrue(productDefectIndex > flakyIndex);
-        Report.pass("Flacky Category is above the Product Defect");
+        Report.pass("Test Category is above the Product Defect");
         assertTrue(categories.contains("\"flaky\": true"));
         Report.pass("Flaky Tag inside category is true");
         assertTrue(categories.contains("timeout|stale element|connection reset"));
