@@ -5,8 +5,6 @@ import org.flywaydb.core.Flyway;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.mysql.MySQLContainer;
@@ -15,6 +13,7 @@ import org.testcontainers.utility.DockerImageName;
 import com.gradleproject.data.OrderBuilder;
 import com.gradleproject.data.OrderFactory;
 import com.gradleproject.data.OrderRepository;
+import com.gradleproject.support.Report;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -34,9 +33,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @Testcontainers(disabledWithoutDocker = true)
 class OrderTestIT {
 
-    private static final Logger log =
-            LoggerFactory.getLogger(OrderTestIT.class);
-
     // Dedicated MySQL for testcontainer.
     @Container
     static MySQLContainer mySQL = new MySQLContainer(DockerImageName.parse("mysql:8.0"))
@@ -51,77 +47,77 @@ class OrderTestIT {
     @BeforeAll
     static void migrateSchema(){
 
-        Allure.step("========== Test Container Test Started ==========");
+        Report.step("========== Test Container Test Started ==========");
 
-        log.info("MySql Container Running       : {}", mySQL.isRunning());
-        log.info("MySql Container JDBC URL      : {}", mySQL.getJdbcUrl());
-        log.info("MySql Container Database      : {}", mySQL.getDatabaseName());
+        Report.info("MySql Container Running       : {}", mySQL.isRunning());
+        Report.info("MySql Container JDBC URL      : {}", mySQL.getJdbcUrl());
+        Report.info("MySql Container Database      : {}", mySQL.getDatabaseName());
 
-        Allure.step("========== Flyway Migration Started ==========");
+        Report.step("========== Flyway Migration Started ==========");
         Flyway.configure()
                 .dataSource(mySQL.getJdbcUrl(), mySQL.getUsername(), mySQL.getPassword())
                 .locations("classpath:db/migration")
                 .load()
                 .migrate();
-        Allure.step("========== Flyway Migration Completed ==========");
+        Report.step("========== Flyway Migration Completed ==========");
 
 
         repository = new OrderRepository(mySQL.getJdbcUrl(), mySQL.getUsername(), mySQL.getPassword());
-        Allure.step("Repository Initialised");
+        Report.step("Repository Initialised");
         factory = new OrderFactory(repository);
-        Allure.step("Factory Initialised");
+        Report.step("Factory Initialised");
     }
 
     @BeforeEach
     void reset(){
-        log.info("Resetting database...");
+        Report.step("Resetting database...");
         repository.resetMutableTables();
-        log.info("Database reset complete.");
+        Report.step("Database reset complete.");
     }
 
     @Test
         
         void flywaySeedingReferenceDataButNoPerTestOrders(){
-            log.info("Test 1: Flyway Migration Testing Started");
+            Report.step("Test 1: Flyway Migration Testing Started");
             assertEquals(4,repository.referenceStatusCount());
 
             assertEquals(0,repository.count());
-            log.info("Test 1: Completed");
-            log.info("Tested Order Status DB have 4 Row and Retail Order DB Have 0 Rows : Test Passed");
+            Report.step("Test 1: Completed");
+            Report.step("Tested Order Status DB have 4 Row and Retail Order DB Have 0 Rows : Test Passed");
         }
         
     @Test
     void persistedBuilderDataAgainstIsolatedMysql(){
-            log.info("Test 2: Data Persisted Test for Factory");
+            Report.step("Test 2: Data Persisted Test for Factory");
             long id = factory.persisted(OrderBuilder.anOrder().qty(3));
             
             assertTrue(id>0);
             assertEquals(1,repository.count());
-            log.info("Test 2: Completed");
-            log.info("Tested Order ID is greater than 0 and Retail Order DB have a row : Test Passed");
+            Report.step("Test 2: Completed");
+            Report.step("Tested Order ID is greater than 0 and Retail Order DB have a row : Test Passed");
         }
         
     @Test
     void countsOnlyPersistedTestOrders(){
-            log.info("Test 3: Data Persisted Test for Factory is consistant");
+            Report.step("Test 3: Data Persisted Test for Factory is consistant");
             factory.persisted(OrderBuilder.anOrder());
             factory.persisted(OrderBuilder.anOrder().sku("SKU-2").qty(2));
             
             assertEquals(2,repository.count());
-            log.info("Test 3: Completed");
-            log.info("Tested the Retail Order DB Have 2 Row : Test Passed");
+            Report.step("Test 3: Completed");
+            Report.step("Tested the Retail Order DB Have 2 Row : Test Passed");
         
     }
 
     @Test
     void resetMakesTestOrderIndependent(){
-            log.info("Test 4: Order Created is Exactly what we used");
+            Report.step("Test 4: Order Created is Exactly what we used");
             assertEquals(0,repository.count());
             factory.persisted(OrderBuilder.anOrder().refunded());
             
             assertEquals(1,repository.count());
             assertEquals(1,repository.countByStatus("REFUNDED"));
-            log.info("Test 4: Completed");
-            log.info("Tested the retail order db is row is 1 and retail order db with filter status REFUNDED is 1 : Test Passed");
+            Report.step("Test 4: Completed");
+            Report.step("Tested the retail order db is row is 1 and retail order db with filter status REFUNDED is 1 : Test Passed");
     }
 }

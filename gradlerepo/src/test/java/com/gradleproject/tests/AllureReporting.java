@@ -5,6 +5,8 @@ import io.qameta.allure.*;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import com.gradleproject.support.Report;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -23,7 +25,7 @@ class AllureReporting {
     @Severity(SeverityLevel.CRITICAL)
     @Description("Categories split flaky,test and product")
     void categoriesPutGenericFlakyRules() throws IOException{
-        Allure.step("Test 1: Validating Allure Categories Configuration");
+        Report.step("Test 1: Validating Allure Categories Configuration");
         String categories = Files.readString(Path.of("src/test/resources/allure/categories.json"));
 
         int flakyIndex = categories.indexOf("\"Flaky tests\"");
@@ -35,7 +37,7 @@ class AllureReporting {
         assertTrue(productDefectIndex > flakyIndex);
         assertTrue(categories.contains("\"flaky\": true"));
         assertTrue(categories.contains("timeout|stale element|connection reset"));
-        Allure.step("Allure categories.json validated successfully.");
+        Report.step("Allure categories.json validated successfully.");
         
     }
 
@@ -44,7 +46,7 @@ class AllureReporting {
     @Severity(SeverityLevel.CRITICAL)
     @Description("Should appear under Product defects")
     void productDefect() {
-        Allure.step("Test 2: Creating a Fake Product defect by assert 10==20");
+        Report.step("Test 2: Creating a Fake Product defect by assert 10==20");
         assertEquals(10, 20, "Incorrect cart total");
     }
 
@@ -53,7 +55,7 @@ class AllureReporting {
     @Severity(SeverityLevel.CRITICAL)
     @Description("Should appear under Test defects (broken)")
     void brokenDefect() {
-        Allure.step("Test 3: Creating a Fake Test defect checking null text length");
+        Report.step("Test 3: Creating a Fake Test defect checking null text length");
         String text = null;
         text.length();
     }
@@ -63,7 +65,7 @@ class AllureReporting {
     @Severity(SeverityLevel.CRITICAL)
     @Description("Should appear under Test defects (broken)")
     void brokenDefect1() {
-        Allure.step("Test 3: Creating a Fake Test defect By throwing any RunTimeException");
+        Report.step("Test 3: Creating a Fake Test defect By throwing any RunTimeException");
         throw new RuntimeException("Runtime Exception Error");
     }
 
