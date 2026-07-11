@@ -1,20 +1,21 @@
 <configuration>
 
-    <root level="INFO">
-        <appender-ref ref="STDOUT"/>
-    </root>
-
     <appender name="STDOUT"
               class="ch.qos.logback.core.ConsoleAppender">
+
         <encoder>
-            <pattern>%d{HH:mm:ss} %-5level %logger - %msg%n</pattern>
+            <pattern>%msg%n</pattern>
         </encoder>
+
     </appender>
 
-    <logger name="org.testcontainers" level="WARN"/>
-    <logger name="com.github.dockerjava" level="WARN"/>
-    <logger name="org.flywaydb" level="INFO"/>
+    <logger name="com.gradleproject" level="INFO" additivity="false">
+        <appender-ref ref="STDOUT"/>
+    </logger>
 
-    <logger name="com.gradleproject" level="INFO"/>
+    <logger name="org.testcontainers" level="OFF"/>
+    <logger name="com.github.dockerjava" level="OFF"/>
+    <logger name="org.flywaydb" level="OFF"/>
+    <root level="OFF"/>
 
 </configuration>
