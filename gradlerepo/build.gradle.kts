@@ -40,6 +40,7 @@ dependencies {
     testImplementation("com.aventstack:extentreports:$extentVersion")
     testImplementation("tech.grasshopper:extentreports-cucumber7-adapter:$extentCucumberAdapterVersion")
     testImplementation("org.slf4j:slf4j-simple:$slf4jVersion")
+    testImplementation("org.slf4j:slf4j-api:$slf4jVersion")
     testImplementation("org.testcontainers:testcontainers-junit-jupiter:$testcontainers")
     testImplementation("org.testcontainers:testcontainers-mysql:$testcontainers")
     testImplementation("org.flywaydb:flyway-core:$flywayVersion")
@@ -49,7 +50,7 @@ dependencies {
 
 tasks.withType<JavaCompile>().configureEach {
     options.encoding = "UTF-8"
-    options.release.set(17)
+    options.release.set(22)
 }
 
 tasks.withType<Test>().configureEach {
@@ -71,8 +72,7 @@ fun Test.useProjectTestClasses() {
 }
 
 tasks.register("runAllTests") {
-    group = "verification"
-    description = "Runs all Selenium, POM, Structure and Cucumber tests"
+    description = "Runs all Selenium POM, Structure, Cucumber tests and verification test"
 
     dependsOn(
         tasks.test,
@@ -98,14 +98,6 @@ val StructureTest by tasks.registering(Test::class) {
     include("**/CatalogStructureTest.class")
 }
 
-val AllureTest by tasks.registering(Test::class) {
-    description = "Structure Test of catalog page"
-    group = "verification"
-    useProjectTestClasses()
-    useJUnitPlatform()
-    include("**/AllureReporting.class")
-}
-
 val OrderTestIT by tasks.registering(Test::class) {
     description = "Structure Test of catalog page"
     group = "verification"
@@ -117,7 +109,7 @@ val OrderTestIT by tasks.registering(Test::class) {
 
 val CatalogFlowTest by tasks.registering(Test::class) {
     description = "Check the catalog flow test"
-    group = "verification"
+    group = "FlowTests"
     useProjectTestClasses()
     useJUnitPlatform()
     include("**/CatalogFlowTest.class")
@@ -127,7 +119,7 @@ val CatalogFlowTest by tasks.registering(Test::class) {
 
 val cucumberSmoke by tasks.registering(Test::class) {
     description = "Runs Cucumber smoke scenarios through the Gradle JUnit Platform."
-    group = "verification"
+    group = "FlowTests"
     useProjectTestClasses()
     useJUnitPlatform()
     include("**/RunCucumberTest.class")
@@ -138,7 +130,7 @@ val cucumberSmoke by tasks.registering(Test::class) {
 
 val AllureTest by tasks.registering(Test::class) {
     description = "Allure Report Generation Dummy Test"
-    group = "verification"
+    group = "Reporting"
     useProjectTestClasses()
     useJUnitPlatform()
     include("**/AllureReporting.class")
