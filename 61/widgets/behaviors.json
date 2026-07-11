@@ -1,0 +1,1 @@
+{"total":2,"items":[{"uid":"048b7ff21d9d541e809fc9facfa0ea21","name":"Framework Hardening","statistic":{"failed":1,"broken":0,"skipped":0,"passed":0,"unknown":0,"total":1}},{"uid":"0a8b689f55c8f6aeb1e674f7ca85b9d8","name":"Testcontainer Tests","statistic":{"failed":0,"broken":0,"skipped":0,"passed":1,"unknown":0,"total":1}}]}
