@@ -64,9 +64,9 @@ class OrderTestIT {
 
     @BeforeEach
     void reset(){
-        log.info("========== Clearing Table Started ==========");
+        log.info("Resetting database...");
         repository.resetMutableTables();
-        log.info("========== Clearing Table Completed ==========");
+        log.info("Database reset complete.");
     }
 
     @Test

@@ -43,7 +43,6 @@ dependencies {
     testImplementation("io.qameta.allure:allure-junit5")
     testImplementation("com.aventstack:extentreports:$extentVersion")
     testImplementation("tech.grasshopper:extentreports-cucumber7-adapter:$extentCucumberAdapterVersion")
-    testImplementation("org.slf4j:slf4j-simple:$slf4jVersion")
     testImplementation("org.slf4j:slf4j-api:$slf4jVersion")
     testImplementation("org.testcontainers:testcontainers-junit-jupiter:$testcontainers")
     testImplementation("org.testcontainers:testcontainers-mysql:$testcontainers")
