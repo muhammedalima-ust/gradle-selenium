@@ -67,13 +67,5 @@ class AllureReporting {
     @Description("The Test will skip and add to skipped category")
     void skippedTest() {}
 
-    @Test
-    @Story("Categories")
-    @Severity(SeverityLevel.CRITICAL)
-    @Description("Should appear under Flaky tests")
-    void flakyTimeoutTest() {
-        throw new RuntimeException("timeout");
-    }
-
 }
  

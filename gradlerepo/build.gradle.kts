@@ -78,9 +78,7 @@ tasks.register("runAllTests") {
         tasks.test,
         StructureTest,
         CatalogFlowTest,
-        CatalogFlowTestPOM,
         cucumberSmoke,
-        Order,
         OrderTestIT
     )
 }
@@ -116,13 +114,6 @@ val OrderTestIT by tasks.registering(Test::class) {
     include("**/OrderTestIT.class")
 }
 
-val Order by tasks.registering(Test::class) {
-    description = "Checking whether the data is persistant"
-    group = "verification"
-    useProjectTestClasses()
-    useJUnitPlatform()
-    include("**/Day6Test.class")
-}
 
 val CatalogFlowTest by tasks.registering(Test::class) {
     description = "Check the catalog flow test"
@@ -133,15 +124,6 @@ val CatalogFlowTest by tasks.registering(Test::class) {
     maxParallelForks = 1
 }
 
-
-val CatalogFlowTestPOM by tasks.registering(Test::class) {
-    description = "Check the catalog flow test"
-    group = "verification"
-    useProjectTestClasses()
-    useJUnitPlatform()
-    include("**/CatalogFlowPOMTest.class")
-    maxParallelForks = 1
-}
 
 val cucumberSmoke by tasks.registering(Test::class) {
     description = "Runs Cucumber smoke scenarios through the Gradle JUnit Platform."
@@ -154,20 +136,11 @@ val cucumberSmoke by tasks.registering(Test::class) {
 }
 
 
-tasks.register("w6d2BuildSummary") {
-    description = "Prints the Week 6 Day 2 Maven to Gradle command map."
-    group = "help"
-    doLast {
-        println(
-            """
-            W6D2 Build Tooling Summary
-            Maven compile: mvn clean test-compile
-            Gradle compile: ./gradlew clean testClasses
-            Maven structure: mvn clean -Dtest=W6D1RefactoringStructureTest test
-            Gradle structure: ./gradlew clean w6d1StructureTest
-            Gradle smoke: ./gradlew cucumberSmoke -Pheadless=true
-            Gradle scan: ./gradlew w6d1StructureTest --scan
-            """.trimIndent()
-        )
-    }
+val AllureTest by tasks.registering(Test::class) {
+    description = "Allure Report Generation Dummy Test"
+    group = "verification"
+    useProjectTestClasses()
+    useJUnitPlatform()
+    include("**/AllureReporting.class")
+    maxParallelForks = 1
 }

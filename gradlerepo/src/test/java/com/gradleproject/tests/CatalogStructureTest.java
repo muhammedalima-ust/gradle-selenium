@@ -39,7 +39,6 @@ public class CatalogStructureTest {
          List<Method> catalogMethodModiers = Arrays.stream(CatalogPage.class.getMethods())
                  .filter(method -> method.getReturnType().equals(CatalogPage.class))
                  .toList();
-// This is Method Modifiers Assertion
 
         System.out.println();
 
