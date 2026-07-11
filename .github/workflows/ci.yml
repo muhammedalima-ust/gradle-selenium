@@ -34,7 +34,6 @@ jobs:
       - name: Run Tests
         working-directory: gradlerepo
         run: ./gradlew clean test \
-              --info \
               --stacktrace \
               --console=plain \
               --no-daemon
