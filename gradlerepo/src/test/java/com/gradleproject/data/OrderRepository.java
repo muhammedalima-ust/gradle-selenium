@@ -8,9 +8,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.gradleproject.models.Orders;
 
 public class OrderRepository {
+
+    private static final Logger log =
+            LoggerFactory.getLogger(OrderRepository.class);
 
     private final String jdbcUrl;
     private final String username;
@@ -23,6 +29,7 @@ public class OrderRepository {
     }
 
     public long save(Orders order) {
+        
         String orderSql = """
                 INSERT INTO retail_orders(status, price, date_on, refunded)
                 VALUES (?, ?, ?, ?)

@@ -19,8 +19,16 @@ import com.gradleproject.data.OrderRepository;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-
-@Epic("Testcontainer Tests")
+/**
+ * Testcontainer Features:
+ * MySql Test Containers
+ * Flyway for SeedData
+ * Builder And Factory for Data Format
+ * Log for DB Logging
+ * Allure Reporting and Tracing
+ * Test isolation
+ */
+@Epic("Testcontainer")
 @Feature("Datamigration And Test Container Test")
 @Owner("SDET Trainee")
 @Testcontainers(disabledWithoutDocker = true)
@@ -29,6 +37,7 @@ class OrderTestIT {
     private static final Logger log =
             LoggerFactory.getLogger(OrderTestIT.class);
 
+    // Dedicated MySQL for testcontainer.
     @Container
     static MySQLContainer mySQL = new MySQLContainer(DockerImageName.parse("mysql:8.0"))
             .withDatabaseName("retail_test")
@@ -38,28 +47,29 @@ class OrderTestIT {
     static OrderRepository repository;
     static OrderFactory factory;
 
+    // Run Flyway Migration , Initialising Repository and Factory.
     @BeforeAll
     static void migrateSchema(){
 
-        log.info("========== Test Container Test Started ==========");
+        Allure.step("========== Test Container Test Started ==========");
 
         log.info("MySql Container Running       : {}", mySQL.isRunning());
         log.info("MySql Container JDBC URL      : {}", mySQL.getJdbcUrl());
         log.info("MySql Container Database      : {}", mySQL.getDatabaseName());
 
-        log.info("========== Flyway Migration Started ==========");
+        Allure.step("========== Flyway Migration Started ==========");
         Flyway.configure()
                 .dataSource(mySQL.getJdbcUrl(), mySQL.getUsername(), mySQL.getPassword())
                 .locations("classpath:db/migration")
                 .load()
                 .migrate();
-        log.info("========== Flyway Migration Completed ==========");
+        Allure.step("========== Flyway Migration Completed ==========");
 
 
         repository = new OrderRepository(mySQL.getJdbcUrl(), mySQL.getUsername(), mySQL.getPassword());
-        log.info("Repository Initialised");
+        Allure.step("Repository Initialised");
         factory = new OrderFactory(repository);
-        log.info("Factory Initialised");
+        Allure.step("Factory Initialised");
     }
 
     @BeforeEach
@@ -74,6 +84,7 @@ class OrderTestIT {
         void flywaySeedingReferenceDataButNoPerTestOrders(){
             log.info("Test 1: Flyway Migration Testing Started");
             assertEquals(4,repository.referenceStatusCount());
+
             assertEquals(0,repository.count());
             log.info("Test 1: Completed");
             log.info("Tested Order Status DB have 4 Row and Retail Order DB Have 0 Rows : Test Passed");
